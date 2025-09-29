@@ -1,33 +1,30 @@
 # Define a substitution variable to make the build more manageable.
 # Cloud Build will automatically substitute the project ID.
+# cloudbuild.yaml
 substitutions:
   _IMAGE_NAME: 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-python-app-repo/my-flask-app'
+  _SERVICE_NAME: 'deploy-on-main-push1'   # 👈 desired Cloud Run service name
 
 steps:
-  # 1) Build the image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', '${_IMAGE_NAME}:latest', '.']
+    args: ['build', '-t', '${_IMAGE_NAME}:$SHORT_SHA', '.']
 
-  # 2) Push the image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '${_IMAGE_NAME}:latest']
+    args: ['push', '${_IMAGE_NAME}:$SHORT_SHA']
 
-  # 3) Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
       - run
       - deploy
-      - my-flask-app-service
-      - --image=${_IMAGE_NAME}:latest
+      - ${_SERVICE_NAME}              # 👈 this creates/updates the service with that name
+      - --image=${_IMAGE_NAME}:$SHORT_SHA
       - --region=us-central1
       - --platform=managed
       - --allow-unauthenticated
 
-# Optional: register produced image in the build
 images:
-  - '${_IMAGE_NAME}:latest'
+  - '${_IMAGE_NAME}:$SHORT_SHA'
 
-# Logging option from the PDF
 options:
   logging: CLOUD_LOGGING_ONLY
