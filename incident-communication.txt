@@ -1,12 +1,9 @@
-Subject: [Investigating] Service Disruption for Flask Application
-
-Status: Investigating  
-Time: September 29, 2025, 12:10 PM CST  
-
-We are currently investigating a service disruption affecting our primary Flask application.  
-Some users may be unable to access the service or may experience intermittent errors.  
-
-Our engineering team has been notified and is actively working to identify and resolve the issue.  
-We will share an update within the next 30 minutes or as soon as additional information becomes available.  
-
-We apologize for the inconvenience and appreciate your patience while we work to restore full functionality.
+**Subject: Service Disruption for Flask Application**
+**Status:** Resolved
+**Time:**
+The service disruption affecting our Flask application has been resolved, and the service
+is now operating normally.
+The outage was caused by a faulty code deployment, which has been rolled back. We are
+conducting a full post-mortem to identify and implement preventative measures to
+ensure this does not happen again.
+Thank you for your patience.
