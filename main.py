@@ -1,13 +1,12 @@
 # main.py
 
 from flask import Flask
-import os
-
 app = Flask(__name__)
-
 @app.route('/')
 def hello_world():
-    return "Hello, World! The CI/CD Pipeline worked! Version 2.0"
+    # This line introduces a bug that will crash the server.
+    bad_variable = 1 / 0
+    return "This will never be returned."
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8080))
