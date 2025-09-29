@@ -1,10 +1,10 @@
 # main.py
 
 from flask import Flask
-
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def hello_world():
-    # A simple greeting
-    return "Hello, World! The CI/CD Pipeline worked! Version 2.1"
+    return "Hello, World! The CI/CD Pipeline worked! Version 2.0"
+
+# (no need for __main__ block when using gunicorn)
